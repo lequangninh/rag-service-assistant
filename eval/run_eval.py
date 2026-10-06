@@ -20,7 +20,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from rag.answer import MIN_SIMILARITY, generate_answer  # noqa: E402
+from rag.answer import generate_answer, too_weak  # noqa: E402
 from rag.pipeline import Assistant  # noqa: E402
 
 
@@ -44,7 +44,7 @@ def main() -> None:
             hit3 += ok
             status = "hit@3" if ok else f"MISS (got {ids[0]})"
         else:
-            status = "gated" if top_sim < MIN_SIMILARITY else "to model"
+            status = "gated" if too_weak(hits) else "to model"
         line = f"{top_sim:.2f}  {status:<40} {case['q']}"
         if args.llm:
             answer = generate_answer(case["q"], hits)

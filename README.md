@@ -23,7 +23,7 @@ flowchart LR
 
 1. **Chunking by section.** Each `##` section of a document becomes one chunk, so every citation points to a section a person can find in the source file.
 2. **Hybrid retrieval.** BM25 catches exact terms ("lockout", "Zone B"). Embeddings catch paraphrases ("nobody opened the door"). Reciprocal Rank Fusion merges both rankings without calibrating their different score scales.
-3. **Relevance gate.** If even the best section is far from the question, the assistant answers "I don't know" without calling the model, which saves cost and blocks off-topic answers.
+3. **Relevance gate.** If even the best section is far from the question, or no section shares a single keyword with it, the assistant answers "I don't know" without calling the model, which saves cost and blocks off-topic answers.
 4. **Grounded generation with API citations.** The retrieved sections are sent to Claude as separate `document` blocks with [citations](https://platform.claude.com/docs/en/build-with-claude/citations) enabled. The API returns which passage supports each sentence, so citations are verified by the API rather than written by the model.
 
 ## Handling hallucinations, failures and security
@@ -31,7 +31,7 @@ flowchart LR
 | Risk | What this project does |
 |---|---|
 | Hallucinated facts | Answers only from retrieved documents; API-level citations for every claim; fixed "I don't know" reply when the answer isn't there |
-| Off-topic questions | Similarity gate stops clearly unrelated questions before any model call |
+| Off-topic or nonsense questions | Gate stops clearly unrelated questions (low similarity) and nonsense input (no shared keyword) before any model call |
 | Prompt injection in documents | System prompt treats documents as reference material, not instructions |
 | Model refusals | Server-side fallback model, plus a friendly reply if the request is still declined |
 | API errors | SDK retries for rate limits and server errors; clear messages for a missing key, network problems and API errors |

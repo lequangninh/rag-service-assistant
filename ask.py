@@ -8,6 +8,8 @@ from __future__ import annotations
 
 import argparse
 
+import anthropic
+
 from rag.answer import MissingAPIKeyError
 from rag.pipeline import Assistant
 
@@ -22,6 +24,12 @@ def main() -> None:
         answer, hits = Assistant().ask(args.question)
     except MissingAPIKeyError as e:
         raise SystemExit(f"Error: {e}")
+    except anthropic.AuthenticationError:
+        raise SystemExit("Error: the API key in .env is invalid. Set a valid ANTHROPIC_API_KEY and try again.")
+    except anthropic.APIConnectionError:
+        raise SystemExit("Error: couldn't reach the Claude API. Check your internet connection and try again.")
+    except anthropic.APIStatusError as e:
+        raise SystemExit(f"Error: the Claude API returned an error ({e.status_code}). Please try again.")
     print(answer.text)
     for c in answer.citations:
         print(f'\n[{c.number}] {c.label}\n    "{c.quote}"')

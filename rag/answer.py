@@ -25,6 +25,17 @@ NOT_FOUND = "I don't know based on BrightClean's documents."
 # the system prompt handles the overlap.
 MIN_SIMILARITY = 0.55
 
+
+def too_weak(hits: list[Hit]) -> bool:
+    # Very short or nonsense input ("", "asdkjh", "hello") gets a generic
+    # embedding that sits close to everything and can pass MIN_SIMILARITY.
+    # Requiring at least one shared keyword catches it: every answerable eval
+    # question has a BM25 score >= 2, every junk input scores exactly 0.
+    if not hits:
+        return True
+    return max(h.similarity for h in hits) < MIN_SIMILARITY or max(h.bm25 for h in hits) == 0
+
+
 SYSTEM_PROMPT = f"""You are the customer support assistant of BrightClean Services, a cleaning company.
 
 Answer the customer's question using only the documents provided in the message. They are excerpts from BrightClean's official policies.
@@ -63,7 +74,7 @@ def _client() -> anthropic.Anthropic:
 
 
 def generate_answer(question: str, hits: list[Hit], client: anthropic.Anthropic | None = None) -> Answer:
-    if not hits or max(h.similarity for h in hits) < MIN_SIMILARITY:
+    if too_weak(hits):
         return Answer(
             text=f"{NOT_FOUND} Please contact our customer support team for help.",
             answered=False,

@@ -56,6 +56,16 @@ def test_weak_retrieval_skips_model_call():
     assert client.calls == []
 
 
+def test_no_shared_keyword_skips_model_call():
+    # Nonsense input can pass the similarity gate; zero BM25 overlap must still stop it.
+    client = FakeClient(response=None)
+    hit = _hit("x", "a.md › A", similarity=0.6)
+    hit.bm25 = 0.0
+    answer = generate_answer("asdkjh qwe zzz", [hit], client=client)
+    assert not answer.answered and answer.skipped_model_call
+    assert client.calls == []
+
+
 def test_citations_are_numbered_and_deduplicated():
     cit = SimpleNamespace(document_index=1, cited_text="We accept cards only. ")
     response = SimpleNamespace(
