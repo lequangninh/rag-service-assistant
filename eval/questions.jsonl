@@ -1,0 +1,24 @@
+{"q": "How much does a deep clean cost for a 3 bedroom house?", "expect": "pricing:home-cleaning-prices", "keywords": ["$300"]}
+{"q": "Is there a discount if you come every week?", "expect": "pricing:recurring-discounts", "keywords": ["15%"]}
+{"q": "What happens if I cancel the day before?", "expect": "booking-and-cancellation:cancellation-fees", "keywords": ["50%"]}
+{"q": "Nobody was home and the cleaners couldn't get in. Do I still pay?", "expect": "booking-and-cancellation:lockouts", "keywords": ["100%"]}
+{"q": "Do I have to buy the cleaning products myself?", "expect": "faq:do-i-need-to-provide-cleaning-supplies", "keywords": ["bring"]}
+{"q": "Can you pay with cash?", "expect": "pricing:payment", "keywords": ["cash"]}
+{"q": "Do you charge extra to drive to Lakeview?", "expect": "service-area:service-zones", "keywords": ["$15"]}
+{"q": "Is the inside of the oven included in a standard clean?", "expect": "services:standard-cleaning", "keywords": ["oven"]}
+{"q": "What does a move-out cleaning include?", "expect": "services:move-in-move-out-cleaning", "keywords": ["cabinets"]}
+{"q": "Are your workers insured?", "expect": "faq:are-your-cleaners-insured-and-background-checked", "keywords": ["$2 million"]}
+{"q": "I'm not happy with how the bathroom was cleaned. What can I do?", "expect": "faq:what-is-your-satisfaction-guarantee", "keywords": ["24 hours"]}
+{"q": "Do you clean on Sundays?", "expect": "service-area:cleaning-hours", "keywords": ["Sunday"]}
+{"q": "How early do I need to book as a new customer?", "expect": "booking-and-cancellation:how-to-book", "keywords": ["48 hours"]}
+{"q": "The team arrived 45 minutes late. Do I get anything?", "expect": "booking-and-cancellation:arrival-window", "keywords": ["$20"]}
+{"q": "How much is office cleaning per square foot?", "expect": "pricing:office-cleaning-prices", "keywords": ["$0.12"]}
+{"q": "Can you shampoo my carpets?", "expect": "services:services-we-do-not-offer", "keywords": ["carpet"]}
+{"q": "Will you clean the cat's litter box?", "expect": "faq:what-about-pets", "keywords": ["litter"]}
+{"q": "Who gets the tip?", "expect": "faq:should-i-tip-the-cleaners", "keywords": ["100%"]}
+{"q": "Do you offer gardening or lawn mowing?", "expect": null}
+{"q": "What is the CEO's name?", "expect": null}
+{"q": "Can I pay in Bitcoin?", "expect": null}
+{"q": "Do you clean swimming pools?", "expect": null}
+{"q": "What's the weather like in Riverton tomorrow?", "expect": null}
+{"q": "Do you have a mobile app?", "expect": null}
